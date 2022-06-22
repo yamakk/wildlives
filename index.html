@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>鳥獣判別</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <div style="text-align:center">
+      <a href="#" @click="sort('book')">読本順</a> &nbsp;&nbsp;
+      <a href="#" @click="sort('random')">ランダム</a>&nbsp;&nbsp;
+      <a href="#" @click="sort('birds')">鳥系</a>&nbsp;&nbsp;
+      <a href="#" @click="sort('ducks')">カモ系</a>&nbsp;&nbsp;
+    </div>
+    <div class="grid">
+      <div v-for="a in items" @click="click(a.id)">
+        <div style="margin:0 auto; text-align: center;" :class="selected_id === a.id ? `flip ${a.color}` : ''">
+            <img style="max-width:100%; max-height: 100%;" :src=`images/animal-${a.id}.jpg`
+               :class="selected_id === a.id ? 'flip-image' : ''">
+            <div clsss="name">{{selected_id===a.id ? a.name : ''}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        items: [],
+        selected_id: null,
+        animals: [{"id":"00","name":"マガモ","color":"green","birds":1.0,"ducks":1.0},{"id":"01","name":"カルガモ","color":"green","birds":1.0,"ducks":1.0},{"id":"02","name":"ヨシガモ","color":"green","birds":1.0,"ducks":1.0},{"id":"03","name":"コガモ","color":"green","birds":1.0,"ducks":1.0},{"id":"04","name":"オナガガモ","color":"green","birds":1.0,"ducks":1.0},{"id":"05","name":"ヒドリガモ","color":"green","birds":1.0,"ducks":1.0},{"id":"06","name":"ハシビロガモ","color":"green","birds":1.0,"ducks":1.0},{"id":"07","name":"ホシハジロ","color":"green","birds":1.0,"ducks":1.0},{"id":"08","name":"スズガモ","color":"green","birds":1.0,"ducks":1.0},{"id":"09","name":"キンクロハジロ","color":"green","birds":1.0,"ducks":1.0},{"id":"10","name":"クロガモ","color":"green","birds":1.0,"ducks":1.0},{"id":"11","name":"ゴイサギ","color":"green","birds":1.0,"ducks":0.0},{"id":"12","name":"バン","color":"green","birds":1.0,"ducks":0.0},{"id":"13","name":"タシギ","color":"green","birds":1.0,"ducks":0.0},{"id":"14","name":"ヤマシギ","color":"green","birds":1.0,"ducks":0.0},{"id":"15","name":"カワウ","color":"green","birds":1.0,"ducks":0.0},{"id":"16","name":"エゾライチョウ","color":"green","birds":1.0,"ducks":0.0},{"id":"17","name":"コジュケイ","color":"green","birds":1.0,"ducks":0.0},{"id":"18","name":"ヤマドリ","color":"green","birds":1.0,"ducks":0.0},{"id":"19","name":"キジバト","color":"green","birds":1.0,"ducks":0.0},{"id":"20","name":"キジ","color":"green","birds":1.0,"ducks":0.0},{"id":"21","name":"ニュウナイスズメ","color":"green","birds":1.0,"ducks":0.0},{"id":"22","name":"ヒヨドリ","color":"green","birds":1.0,"ducks":0.0},{"id":"23","name":"スズメ","color":"green","birds":1.0,"ducks":0.0},{"id":"24","name":"ムクドリ","color":"green","birds":1.0,"ducks":0.0},{"id":"25","name":"ミヤマガラス","color":"green","birds":1.0,"ducks":0.0},{"id":"26","name":"ハシブトガラス","color":"green","birds":1.0,"ducks":0.0},{"id":"27","name":"ハシボソガラス","color":"green","birds":1.0,"ducks":0.0},{"id":"28","name":"ノウサギ","color":"green","birds":0.0,"ducks":0.0},{"id":"29","name":"タイワンリス","color":"green","birds":0.0,"ducks":0.0},{"id":"30","name":"シマリス","color":"green","birds":0.0,"ducks":0.0},{"id":"31","name":"ヌートリア","color":"green","birds":0.0,"ducks":0.0},{"id":"32","name":"ヒグマ","color":"green","birds":0.0,"ducks":0.0},{"id":"33","name":"ツキノワグマ","color":"green","birds":0.0,"ducks":0.0},{"id":"34","name":"イノシシ","color":"green","birds":0.0,"ducks":0.0},{"id":"35","name":"ニホンジカ","color":"green","birds":0.0,"ducks":0.0},{"id":"36","name":"アライグマ","color":"green","birds":0.0,"ducks":0.0},{"id":"37","name":"キツネ","color":"green","birds":0.0,"ducks":0.0},{"id":"38","name":"テン","color":"green","birds":0.0,"ducks":0.0},{"id":"39","name":"イタチ(オス)","color":"green","birds":0.0,"ducks":0.0},{"id":"40","name":"ミンク","color":"green","birds":0.0,"ducks":0.0},{"id":"41","name":"アナグマ","color":"green","birds":0.0,"ducks":0.0},{"id":"42","name":"ハクビシン","color":"green","birds":0.0,"ducks":0.0},{"id":"43","name":"ヨシゴイ","color":"red","birds":1.0,"ducks":0.0},{"id":"44","name":"ササゴイ","color":"red","birds":1.0,"ducks":0.0},{"id":"45","name":"ヒクイナ","color":"red","birds":1.0,"ducks":0.0},{"id":"46","name":"オシドリ","color":"red","birds":1.0,"ducks":1.0},{"id":"47","name":"トモエガモ","color":"red","birds":1.0,"ducks":1.0},{"id":"48","name":"ホオジロガモ","color":"red","birds":1.0,"ducks":1.0},{"id":"49","name":"ウミアイサ","color":"red","birds":1.0,"ducks":1.0},{"id":"50","name":"マガン","color":"red","birds":1.0,"ducks":1.0},{"id":"51","name":"オオバン","color":"red","birds":1.0,"ducks":1.0},{"id":"52","name":"ツグミ","color":"red","birds":1.0,"ducks":0.0},{"id":"53","name":"オナガ","color":"red","birds":1.0,"ducks":0.0},{"id":"54","name":"カケス","color":"red","birds":1.0,"ducks":0.0},{"id":"55","name":"カシラダカ","color":"red","birds":1.0,"ducks":0.0},{"id":"56","name":"モズ","color":"red","birds":1.0,"ducks":0.0},{"id":"57","name":"カワラヒワ","color":"red","birds":1.0,"ducks":0.0},{"id":"58","name":"アオバト","color":"red","birds":1.0,"ducks":0.0},{"id":"59","name":"ホオジロ","color":"red","birds":1.0,"ducks":0.0},{"id":"60","name":"ニホンリス","color":"red","birds":0.0,"ducks":0.0},{"id":"61","name":"ムササビ","color":"red","birds":0.0,"ducks":0.0},{"id":"62","name":"モモンガ","color":"red","birds":0.0,"ducks":0.0},{"id":"63","name":"イタチ(メス)","color":"red","birds":0.0,"ducks":0.0},{"id":"64","name":"オコジョ","color":"red","birds":0.0,"ducks":0.0},{"id":"65","name":"ニホンザル","color":"red","birds":0.0,"ducks":0.0},{"id":"66","name":"カモシカ","color":"red","birds":0.0,"ducks":0.0}]
+      },
+      methods: {
+        click(index) {
+          if(this.selected_id === index ){
+            this.selected_id = null
+          } else{
+            this.selected_id = index
+          }
+        },
+        sort(by) {
+          if(by === 'book') {
+            this.items = this.animals
+          } else if(by === 'random') {
+            this.items = this.random()
+          } else if(by === 'birds') {
+            this.items = this.birds()
+          } else if(by === 'ducks') {
+            this.items = this.ducks()
+          }
+        },
+        random() {
+          return this.animals
+            .map(value => ({ value, sort: Math.random() }))
+            .sort((a, b) => a.sort - b.sort)
+            .map(({ value }) => value)
+        },
+       birds() {
+          return this.animals.filter(a => a.birds === 1)
+            .map(value => ({ value, sort: Math.random() }))
+            .sort((a, b) => a.sort - b.sort)
+            .map(({ value }) => value)
+       },
+       ducks() {
+        return this.animals.filter(a => a.ducks === 1)
+            .map(value => ({ value, sort: Math.random() }))
+            .sort((a, b) => a.sort - b.sort)
+            .map(({ value }) => value)
+       },
+      },
+      created(){
+        this.sort('random')
+      }
+    })
+  </script>
+</body>
+<style type="text/css">
+body {
+  background-color: white;
+  font-family: sans-serif;
+}
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-auto-rows: 1/4fr;
+}
+.flip {
+  border-radius: 7%;
+}
+.green {
+  border: solid 10px rgb(0, 255, 0, 0.8);
+}
+.red {
+  border: solid 10px rgb(255, 0, 0, 0.8);
+}
+.flip-image {
+  opacity: 0.9;
+}
+.name {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+img {
+  border-radius: 10%;
+}
+</style>
+</html>
