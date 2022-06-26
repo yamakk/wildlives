@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>知識試験</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <div style="text-align:center">
+      <a href="index.html">判別</a> &nbsp;&nbsp;
+      <a href="#" @click="sort('random')">ランダム</a>&nbsp;&nbsp;
+      <a href="#" @click="sort('法令')">法令</a>&nbsp;&nbsp;
+      <a href="#" @click="sort('猟具')">猟具</a>&nbsp;&nbsp;
+      <a href="#" @click="sort('鳥獣知識')">鳥獣</a>&nbsp;&nbsp;
+      <a href="#" @click="sort('鳥獣保護')">保護</a>&nbsp;&nbsp;
+    </div>
+    <br>
+    <div class="grid">
+      <div v-for="a in items" @click="click(a.id)">
+        <div style="margin:0 auto; text-align: center;" :class="selected_id === a.id ? `flip ${a.color}` : ''">
+              <div style="display:flex;justify-content:center;align-items:center; border:1px solid; height:200px;">
+                <div style="padding:5px;" :class="selected_id === a.id ? 'flip' : '' ">
+                <span v-html="selected_id === a.id ? a.a.replace(/ /g, '<br>').replace(/　/g, '<br>') : a.q "></span>
+                </div>
+              </div>
+            <div class="name">{{selected_id===a.id ? a.name : ''}}
+              <div class="memo">{{selected_id===a.id ? a.memo : ''}}</div>
+              <div class="origin">{{selected_id===a.id ? a.origin : ''}}</div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        items: [],
+        selected_id: null,
+        qs:
+        [{"cat":"法令","q":"4.狩猟に関する仕組みを規定する法律は？","a":"鳥獣法のみ","id":0},{"cat":"法令","q":"11.狩猟鳥獣の数は？","a":"鳥類28\/550種 獣20\/80種","id":1},{"cat":"法令","q":"17.網猟で使用可能な網は?","a":"むそう網 はり網 つき網 なげ網の4種類","id":2},{"cat":"法令","q":"17.罠猟で使用可能な罠は？","a":"くくりわな 箱罠 はこおとし 囲いわな","id":3},{"cat":"法令","q":"23.はり網の張りっぱなし可否は?","a":"🐇張りっぱなしOK 🦆人が操作 張りっぱなし禁止","id":4},{"cat":"法令","q":"24.かすみ網の特徴は?","a":"使用\/所持\/販売が禁止された「たな」を有する極細糸の網","id":5},{"cat":"法令","q":"41.狩猟者登録期間は?","a":"10\/15-4\/15(6ヶ月)  北海道 9\/15-4\/15(7ヶ月) ","id":6},{"cat":"法令","q":"42.第一種狩猟免許所持者が空気銃を使用する場合の狩猟者登録の種類は?","a":"第一種, 第二種銃猟登録どちらも可能","id":7},{"cat":"法令","q":"44.狩猟者登録の場所の選択肢は?","a":"県全域 or 放鳥銃猟区 の2つ","id":8},{"cat":"法令","q":"51.狩猟者登録証の返納の時期と相手は?","a":"登録期間満了後30日以内に知事に返納","id":9},{"cat":"法令","q":"52.狩猟者登録返納時の捕獲報告に記載する内容は?","a":"捕獲した鳥獣種類、場所、頭数の3点","id":10},{"cat":"法令","q":"54.環境大臣が定めるカモ類の狩猟期間は?","a":"11\/15-2\/15  青森秋田山形 11\/1-1\/31. 北海道10\/1-1\/31","id":11},{"cat":"法令","q":"55.環境大臣が定める猟区とは?狩猟期間は?","a":"≒有料天然釣堀 10\/15-3\/15  北海道 9\/15-2月末 (前後1ヶ月程度長い)","id":12},{"cat":"法令","q":"72.猟銃の時間規制は?","a":"暦による時刻をもとに日没から日の出前は禁止","id":13},{"cat":"法令","q":"76.特定猟具禁止区域区域とは?","a":"危険防止と静音維持、知事が指定","id":14},{"cat":"法令","q":"75.特定猟具使用制限区域(銃器)とは?","a":"ハンター集中による危険防止 知事が指定 人数制限 知事の承認必要","id":15},{"cat":"法令","q":"79.鳥獣保護区とは?","a":"登録狩猟は禁止。有害駆除は可能。","id":16},{"cat":"法令","q":"80.休猟区とは?","a":"減少防止で知事が指定。狩猟原則禁止。第二種特定鳥獣は狩猟が認められる場合がある。","id":17},{"cat":"法令","q":"85.劇薬、爆発物、毒薬で鳥獣を捕獲することは可能か？","a":"環境大臣が許可する場合は可能","id":18},{"cat":"法令","q":"86.ヤマドリの販売は可能か?","a":"知事の許可があれば可能","id":19},{"cat":"法令","q":"88.放鳥銃猟区でキジメスを捕獲可能か?","a":"可能なところもある","id":20},{"cat":"法令","q":"89.猟区の設定主体は?","a":"≒有料天然釣堀  国、都道府県、市町村、猟友会、森林組合などの民間","id":21},{"cat":"法令","q":"93.鳥獣保護管理員とは?","a":"狩猟取締り、保護区管理、調査を行う県の非常勤職員、知事が任命","id":22}]
+      },
+      methods: {
+        click(index) {
+          if(this.selected_id === index ){
+            this.selected_id = null
+          } else{
+            this.selected_id = index
+          }
+        },
+        sort(by) {
+          if(by === '法令') {
+            this.items = this.qs
+          } else if(by === 'random') {
+            this.items = this.random()
+          } else if(by === '法令') {
+            this.items = this.hourei()
+          } else if(by === '猟具') {
+            this.items = this.ryogu()
+          } else if(by === '鳥獣知識') {
+            this.items = this.choju()
+          } else if(by === '鳥獣保護') {
+            this.items = this.hogo()
+          }
+        },
+        random() {
+          return this.qs
+            .map(value => ({ value, sort: Math.random() }))
+            .sort((a, b) => a.sort - b.sort)
+            .map(({ value }) => value)
+        },
+        hourei() {
+            return this.qs.filter(a => a.cat === '法令')
+              .map(value => ({ value, sort: Math.random() }))
+              .sort((a, b) => a.sort - b.sort)
+              .map(({ value }) => value)
+        },
+        ryogu() {
+            return this.qs.filter(a => a.cat === '猟具')
+              .map(value => ({ value, sort: Math.random() }))
+              .sort((a, b) => a.sort - b.sort)
+              .map(({ value }) => value)
+        },
+        choju() {
+            return this.qs.filter(a => a.cat === '鳥獣知識')
+              .map(value => ({ value, sort: Math.random() }))
+              .sort((a, b) => a.sort - b.sort)
+              .map(({ value }) => value)
+        },
+        hogo() {
+            return this.qs.filter(a => a.cat === '鳥獣保護')
+              .map(value => ({ value, sort: Math.random() }))
+              .sort((a, b) => a.sort - b.sort)
+              .map(({ value }) => value)
+        },
+
+
+
+      },
+      created(){
+        this.sort('random')
+      }
+    })
+  </script>
+</body>
+<style type="text/css">
+body {
+  background-color: white;
+  font-family: sans-serif;
+}
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: 1fr;
+}
+.flip {
+  background-color: rgb(183, 235, 158);
+}
+.green {
+  border: solid 10px rgba(6, 169, 6, 0.8);
+}
+.red {
+  border: solid 10px rgb(255, 0, 0, 0.8);
+}
+.flip-image {
+  opacity: 0.9;
+}
+.name {
+  vertical-align: top;
+  /* position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -100%); */
+  font-weight: bolder;
+}
+.memo, .origin {
+  font-size:small;
+  font-weight: lighter;
+}
+.origin {
+  color : #666;
+  font-style: italic;
+}
+img {
+  border-radius: 10%;
+}
+</style>
+</html>
