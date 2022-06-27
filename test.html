@@ -21,7 +21,7 @@
       <div v-for="a in items" @click="click(a.id)">
         <div style="margin:0 auto; text-align: center;" :class="selected_id === a.id ? `flip ${a.color}` : ''">
               <div style="display:flex;justify-content:center;align-items:center; border:1px solid; height:180px;">
-                <div style="padding:5px;" :class="selected_id === a.id ? 'flip' : '' ">
+                <div style="padding:10px;" :class="selected_id === a.id ? 'flip' : '' ">
                 <span v-html="selected_id === a.id ? a.a.replace(/ /g, '<br>').replace(/　/g, '<br>') : a.q "></span>
                 </div>
               </div>
@@ -118,11 +118,14 @@ body {
   background-color: rgb(183, 235, 158);
 }
 .pressed {
+
   color: #111;
   font-weight: bold;
+  font-size: larger;
 }
 .name {
   vertical-align: top;
+  text-decoration: none;
   /* position: relative;
   top: 50%;
   left: 50%;
