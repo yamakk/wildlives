@@ -53,9 +53,7 @@
         },
         sort(by) {
           this.by = by
-          if(by === '法令') {
-            this.items = this.qs
-          } else if(by === 'random') {
+          if(by === 'random') {
             this.items = this.random()
           } else if(by === '法令') {
             this.items = this.hourei()
