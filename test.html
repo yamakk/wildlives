@@ -10,17 +10,17 @@
   <div id="app">
     <div style="text-align:center">
       <a href="index.html">判別</a> &nbsp;&nbsp;
-      <a href="#" @click="sort('random')">ランダム</a>&nbsp;&nbsp;
-      <a href="#" @click="sort('法令')">法令</a>&nbsp;&nbsp;
-      <a href="#" @click="sort('猟具')">猟具</a>&nbsp;&nbsp;
-      <a href="#" @click="sort('鳥獣')">鳥獣</a>&nbsp;&nbsp;
-      <a href="#" @click="sort('保護')">保護</a>&nbsp;&nbsp;
+      <a href="#" @click="sort('random')" :class="by === 'random' ? 'pressed' : 'cat'">ランダム</a>&nbsp;&nbsp;
+      <a href="#" @click="sort('法令')" :class="by === '法令' ? 'pressed' : 'cat'">法令</a>&nbsp;&nbsp;
+      <a href="#" @click="sort('猟具')" :class="by === '猟具' ? 'pressed' : 'cat'">猟具</a>&nbsp;&nbsp;
+      <a href="#" @click="sort('鳥獣')" :class="by === '鳥獣' ? 'pressed' : 'cat'">鳥獣</a>&nbsp;&nbsp;
+      <a href="#" @click="sort('保護')" :class="by === '保護' ? 'pressed' : 'cat'">保護</a>&nbsp;&nbsp;
     </div>
     <br>
     <div class="grid">
       <div v-for="a in items" @click="click(a.id)">
         <div style="margin:0 auto; text-align: center;" :class="selected_id === a.id ? `flip ${a.color}` : ''">
-              <div style="display:flex;justify-content:center;align-items:center; border:1px solid; height:200px;">
+              <div style="display:flex;justify-content:center;align-items:center; border:1px solid; height:180px;">
                 <div style="padding:5px;" :class="selected_id === a.id ? 'flip' : '' ">
                 <span v-html="selected_id === a.id ? a.a.replace(/ /g, '<br>').replace(/　/g, '<br>') : a.q "></span>
                 </div>
@@ -37,6 +37,7 @@
     var app = new Vue({
       el: '#app',
       data: {
+        by: 'random',
         items: [],
         selected_id: null,
         qs:
@@ -51,6 +52,7 @@
           }
         },
         sort(by) {
+          this.by = by
           if(by === '法令') {
             this.items = this.qs
           } else if(by === 'random') {
@@ -97,7 +99,7 @@
         },
       },
       created(){
-        this.sort('random')
+        this.sort(this.by)
       }
     })
   </script>
@@ -115,14 +117,9 @@ body {
 .flip {
   background-color: rgb(183, 235, 158);
 }
-.green {
-  border: solid 10px rgba(6, 169, 6, 0.8);
-}
-.red {
-  border: solid 10px rgb(255, 0, 0, 0.8);
-}
-.flip-image {
-  opacity: 0.9;
+.pressed {
+  color: #111;
+  font-weight: bold;
 }
 .name {
   vertical-align: top;
@@ -131,6 +128,9 @@ body {
   left: 50%;
   transform: translate(-50%, -100%); */
   font-weight: bolder;
+}
+.cat {
+  color:black;
 }
 .memo, .origin {
   font-size:small;
