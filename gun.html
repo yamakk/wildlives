@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>猟銃など講習会考査</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <br>
+    <div class="grid">
+      <div v-for="a in items" @click="click(a.id)">
+        <div style="margin:0 auto; text-align: center;" :class="selected_id === a.id ? `${a.color}` : ''">
+              <div style="display:flex;justify-content:center;align-items:center; border:1px solid; height:240px;">
+                <div style="padding:10px;" :class="selected_id === a.id ? 'flip' : '' ">
+                <!-- <div style="text-align:left;"> {{selected_id=== a.id ? '' : a.id}} </div> <br/> -->
+                <span v-html="selected_id === a.id ? a.q + '<hr>' + a.a  : a.q "></span>
+                <!-- <span v-html="selected_id === a.id ? a.a.replace(/ /g, '<br>').replace(/　/g, '<br>') : a.q "></span> -->
+                </div>
+              </div>
+            <!-- <div class="ans">{{selected_id===a.id ? a.ans : ''}}
+              <div class="memo">{{selected_id===a.id ? a.memo : ''}}</div>
+            </div> -->
+          </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        by: 'random',
+        items: [],
+        selected_id: null,
+        qs:
+        [{"id":0,"q":"猟銃や空気銃の「所持」とは、物に対する事実上の支配をいい、その形態として、携帯、運搬等がある。","a":"❌ 携帯、運搬、保管","color":"red"},{"id":1,"q":"原則として、１８歳未満の人は、猟銃の所持許可を受けることができない。","a":"❌ ２０歳未満の人は猟銃の所持許可を受けることができない。","color":"red"},{"id":2,"q":"所持許可を受けた銃を譲り受けたときは、１０日以内に所持許可を受けた警察署に銃と所持許可証を持参し、確認を受けなければならない。","a":"❌ 14日以内","color":"red"},{"id":3,"q":"猟銃や空気銃は、所持許可証に記載された用途に使用する場合以外は携帯、運搬できない。","a":"❌ 修理のためなどの正当な理由がある場合は携帯、運搬できる。","color":"red"},{"id":4,"q":"故障した銃をそのまま放置していた場合でも、構造・機能の基準維持義務違反とならない。","a":"❌ 構造・機能の基準維持義務違反となる。","color":"red"},{"id":5,"q":"実包の管理状況を記載する帳簿は、最終の記載をした日から１年間保存しておかなければならない。","a":"❌ ３年間保存しておかなければならない。","color":"red"},{"id":6,"q":"一般人に銃を譲り渡した場合、許可証は自ら処分すればよい。","a":"❌ 許可証は住所地を管轄する警察署に返納しなければならない。","color":"red"},{"id":7,"q":"自宅で保管できる実包や空包は800個以内である。","a":"⭕️","color":"green"},{"id":8,"q":"標的射撃のために、１日に実包と空包の合計２００個以下の猟銃用火薬類等を消費する場合には、許可を要さない。","a":"❌ 合計４００個以下の猟銃用火薬類等を消費する場合には、許可を要さない。","color":"red"},{"id":9,"q":"郵便で猟銃用火薬類を運搬することは全面的に禁止されている。","a":"⭕️","color":"green"},{"id":10,"q":"自宅で保管できる実包や空包は800個以内である。","a":"⭕️","color":"green"},{"id":11,"q":"猟銃の撃発機構とは、実包を発射するために必要な引き金、逆鉤、撃鉄、撃針からなる機構である。","a":"⭕️","color":"green"},{"id":12,"q":"猟銃の撃発機構で、「引き金」とは、射手の意思により撃鉄を作動させるものをいう。","a":"❌　 逆鉤を作動させるものをいう。","color":"red"},{"id":13,"q":"散弾は号数によって粒の量が決められている。","a":"❌　 粒の量ではなく大きさが決められている。","color":"red"},{"id":14,"q":"散弾銃の最大到達距離は、銃の番径でよって決まる。","a":"❌ 号数によって決まる。","color":"red"},{"id":15,"q":"狩猟や有害鳥獣駆除のときには、銃口を柔らかい地面など跳弾が発生しにくい方向に向けた状態で実包を装塡しなければならない。","a":"⭕️","color":"green"},{"id":16,"q":"射撃場では、射撃場の管理者等が射撃開始の合図をしたとき以外は、銃を発射してはならない。","a":"⭕️","color":"green"},{"id":17,"q":"カモ猟などで水面に向けて射撃しても跳弾となることはない。","a":"❌ 水面に向けて射撃をした場合も跳弾となる場合がある。","color":"red"},{"id":18,"q":"引き金を引いて撃鉄が落ちてもすぐに弾丸が発射されず、やや時間をおいてから発射されることを遅発という。","a":"⭕️","color":"green"},{"id":19,"q":"猟銃や空気銃の所持許可を受ける前に、練習射撃場に備え付けてある種々の形式の猟銃や空気銃で射撃を行うことができる。","a":"⭕️","color":"green"},{"id":20,"q":"自動車で狩猟等に行く場合、車内に実包を置いたまま車両を離れてはならない。","a":"⭕️","color":"green"},{"id":21,"q":"猟銃や空気銃を所持することは個人の権利であり、あくまで自分のためだけに使用しなくてはならない。","a":"❌ 社会全体にとって有益に活用することが期待され、その責任をまっとうする義務があることを自覚する","color":"red"},{"id":22,"q":"猟銃や空気銃の所持許可申請を受理されたので、銃を譲り受けた。","a":"❌ 所持許可申請の受理だけでは所持できない。 銃砲所持許可証をうけてはじめて所持できる","color":"red"},{"id":23,"q":"猟銃用火薬を無許可で製造できる1日の上限は？","a":"100発以下 (実包と空包の合計)","color":"white"}]
+      },
+      methods: {
+        click(index) {
+          if(this.selected_id === index ){
+            this.selected_id = null
+          } else{
+            this.selected_id = index
+          }
+        },
+        sort(by) {
+          this.by = by
+          if(by === 'random') {
+            this.items = this.random()
+          }
+        },
+        random() {
+          return this.qs
+            .map(value => ({ value, sort: Math.random() }))
+            .sort((a, b) => a.sort - b.sort)
+            .map(({ value }) => value)
+        }
+      },
+      created(){
+        this.sort(this.by)
+      }
+    })
+  </script>
+</body>
+<style type="text/css">
+body {
+  background-color: white;
+  font-family: sans-serif;
+}
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-rows: 1fr;
+}
+.green {
+  background-color: rgba(182, 235, 158, 0.754);
+}
+.red {
+  background-color: rgba(211, 140, 140, 0.456);
+}
+.white {
+  background-color: rgb(255, 251, 251);
+}
+.pressed {
+
+  color: #111;
+  font-weight: bold;
+  font-size: larger;
+}
+.name {
+  vertical-align: top;
+  text-decoration: none;
+  /* position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -100%); */
+  font-weight: bolder;
+}
+.cat {
+  color:black;
+}
+.memo, .origin {
+  font-size:small;
+  font-weight: lighter;
+}
+.origin {
+  color : #666;
+  font-style: italic;
+}
+img {
+  border-radius: 10%;
+}
+</style>
+</html>
